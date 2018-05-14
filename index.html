@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>BIOSPHERE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+<script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/swapBackground.js"></script>    <style type="text/css">
+        .error{
+            font-family: 'Farsan';
+            font-size: medium;
+            color: #C82829;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <!-- <h2>BIOSPHERE</h2> -->
+    <div class="logo-block">
+        <img src='img/logo.png'>
+    </div>
+    <p>Une journée pour être encore plus belle
+        <br/>Profitez des coupons de réduction jusqu'à  <em>50%</em></p>
+    <form action='form-traitement.php' method="post" id="js-form">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <br>
+        <br>
+        <input type="text" name="prenom" placeholder="Prénom" required>
+        <br>
+        <br>
+        <input type="email" name="email" placeholder="Email" required>
+        <br>
+        <br>
+        <input type="tel" name="tel" placeholder="Tél" required>
+        <br>
+        <button type="submit">Récupérer mon code promo</button>
+    </form>
+    <p>
+        <span id="printemps">Le printemps arrive</span>
+    </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
+<script type="text/javascript">
+    $('body').swapBackground({
+        srcSm: 'img/bg-sm.jpg',
+        srcLg: 'img/bg-lg.jpg',
+        mediaQuery:1023
+    });
+    $('#printemps').css('display', 'none');
+    $(document).ready(function(){
+        $(window).on('load resize', function() { //Fires when window is loaded or resized
+            if($(window).width()<1024){
+                $('#printemps').fadeIn(1000);
+            }
+            else{
+                $('#printemps').hide(1000);
+            }
+        });
+
+        $('#js-form').validate({ // initialize the plugin
+            rules: {
+                nom: {
+                    required: true
+                },
+                prenom: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                tel: {
+                    required: true,
+                    matches: "[0-9\-\(\)\s]+",
+                    minlength: 10
+                }
+            },
+            messages :{
+                nom: {
+                    required : 'Obligatoire !'
+                },
+                prenom: {
+                    required : 'Obligatoire !'
+                },
+                email: {
+                    required : 'Obligatoire !',
+                    email: 'Invalide !'
+                },
+                tel: {
+                    required: 'Obligatoire !',
+                    matches: "Invalide !",
+                    minlength: "Au moins 10 caractères !"
+                }
+            },
+            invalidHandler: function(event, validator) {
+                // 'this' refers to the form
+                var errors = validator.numberOfInvalids();
+                if (errors) {
+                    var message = errors == 1
+                        ? 'Vous avez 1 erreurs. vérifiez-le !'
+                        : 'Vous avez ' + errors + ' erreurs. vérifiez !';
+                    $("div.error span").html(message);
+                    $("div.error").show();
+                } else {
+                    $("div.error").hide();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
