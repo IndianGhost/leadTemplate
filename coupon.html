@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>BIOSPHERE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+<script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/swapBackground.js"></script>    <style type="text/css">
+        #congratulation-div em{
+            font-family: 'French Script';
+            font-size: 2.6em;
+        }
+        #congratulation-div span{
+            border: solid #c2376b;
+            border-radius: 2%;
+            padding: 2%;
+        }
+        #under-coupon-message{
+            margin-top: 5% !important;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <!-- <h2>BIOSPHERE</h2> -->
+    <div class="logo-block">
+        <img src='img/logo.png'>
+    </div>
+    <p>Une journée pour être encore plus belle
+        <br/>Profitez des coupons de réduction jusqu'à  <em>50%</em></p>
+    <div id="congratulation-div">
+                    <p><em>Félicitation {{Nom}} {{Prenom}} !</em></p>
+                <p>Votre inscription a été enregistrée avec succès. Voici votre coupon de réduction :</p>
+        <span>CODE-2018SpringFemmebioSphere</span>
+        <p id="under-coupon-message">A bientôt !</p>
+    </div>
+    <p>
+        <span id="printemps">Le printemps arrive</span>
+    </p>
+</div>
+<script type="text/javascript">
+    $('body').swapBackground({
+        srcSm: 'img/bg-sm.jpg',
+        srcLg: 'img/bg-lg.jpg',
+        mediaQuery:1023
+    });
+    $('#printemps').css('display', 'none');
+    $(document).ready(function() {
+        $(window).on('load resize', function () { //Fires when window is loaded or resized
+            if ($(window).width() < 1024) {
+                $('#printemps').fadeIn(1000);
+            }
+            else {
+                $('#printemps').hide(1000);
+            }
+        });
+    });
+</script>
+</body>
+</html>
